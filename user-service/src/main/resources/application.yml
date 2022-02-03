@@ -5,7 +5,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: "*"
   endpoint:
     health:
       show-details: always
@@ -18,12 +18,45 @@ resilience4j:
         registerHealthIndicator: true
         eventConsumerBufferSize: 10
         failureRateThreshold: 50
-        minimumNumberOfCalls: 5
+        minimumNumberOfCalls: 10
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
+
+  ratelimiter:
+    instances:
+      userService:
+        limit-refresh-period: 10s
+        limit-for-period: 50
+        timeout-duration: 0s
+
+resilience4j.bulkhead:
+  instances:
+    userService:
+#      maxWaitDuration: 5ms
+      maxConcurrentCalls: 5
+
+resilience4j.thread-pool-bulkhead:
+  instances:
+    userService:
+      maxThreadPoolSize: 2
+      coreThreadPoolSize: 1
+      queueCapacity: 15
+      writableStackTraceEnabled: false
+
+#  retry:
+#    instances:
+#      userService:
+#        maxRetryAttempts: 5
+#        waitDuration: 10s
+
+
+
+
+
+
 
 
 

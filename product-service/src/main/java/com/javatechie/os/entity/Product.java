@@ -10,24 +10,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ORDERS_TBL")
+@Table(name = "PRODUCTS_TBL")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Product {
 
     @Id
     @GeneratedValue
     private int id;
     private String name;
+    private String description;
     private String category;
-    private double quantity;
-    private double totalAmount;
+    private String color;
+    private double price;
+    private double rating;
 
-    public Order(String name, String category, double quantity, double totalAmount) {
+    public Product(String name, String description, String category, String color, double price, double rating) {
         this.name = name;
+        this.description = description;
         this.category = category;
-        this.quantity = quantity;
-        this.totalAmount = totalAmount;
+        this.color = color;
+        this.price = price;
+        this.rating = rating;
     }
 }
